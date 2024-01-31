@@ -1,0 +1,57 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    volumes:
+      - wordpress:/var/www/
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    env_file: .env
+    ports:
+      - "443:443"
+    restart: always
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception
+    env_file: .env
+    expose:
+      - "3306"
+    restart: always
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress
+    volumes:
+      - wordpress:/var/www
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    env_file: .env
+    expose: 
+      - "9000"
+    restart: always
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/chabrune/data/wordpress'
+  mariadb:
+    driver: local
+    driver_opts:
+      type: 'none' 
+      o: 'bind'
+      device: '/home/chabrune/data/mariadb'
+
+networks:
+  inception:
+    driver: bridge
