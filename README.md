@@ -37,12 +37,5 @@ Création d'une infrastructure complète utilisant Docker avec WordPress, NGINX,
 - Configuration via docker-compose
 - Volumes persistants dans /home/login/data
 
-## 🌟 Bonus
-- Redis cache pour WordPress
-- Serveur FTP
-- Site statique personnalisé
-- Adminer
-- Service supplémentaire justifié
-
 ---
 *Projet réalisé dans le cadre du cursus de l'école 42* 🚀
